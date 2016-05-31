@@ -1,2 +1,2 @@
-# oh-my-zsh-customs
-Some custom scripts for Oh My Zsh
+# Oh My Zsh customs
+## Custom scripts and aliases for Oh My Zsh
