@@ -154,7 +154,7 @@ function init-site {
 
   echo -n "${red}Would you also like to setup Nginx for ${SITE_URL}? (Y/n)"
   read response
-  if [ "$($str | awk '{print toupper($0)}')" = "Y" ]; then
+  if [ "$($response | awk '{print toupper($0)}')" = "Y" ]; then
     setup_nginx || error_exit "${LINENO}: Failed to setup Nginx. Exiting"
   fi
 }
