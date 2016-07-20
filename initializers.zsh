@@ -88,6 +88,12 @@ function init {
     echo "{
       \"parser\": \"babel-eslint\",
       \"extends\": \"airbnb\",
+      \"env\": {
+        \"browser\": true,
+        \"node\": true,
+        \"mocha\": true
+      },
+      \"plugins\": [\"react\", \"jsx-a11y\", \"import\"],
       \"rules\": {
         \"strict\": 0
       }
@@ -98,7 +104,83 @@ function init {
   function stylelint {
     npm install --save-dev stylelint stylelint-config-standard
     echo "{
-      \"extends\": \"stylelint-config-standard\"
+      \"extends\": \"stylelint-config-standard\",
+      \"plugins\": [],
+      \"rules\": {
+        \"font-family-name-quotes\": \"always-unless-keyword\",
+        \"function-url-quotes\": \"always\",
+        \"selector-attribute-quotes\": \"always\",
+        \"string-quotes\": \"double\",
+        \"at-rule-no-vendor-prefix\": true,
+        \"media-feature-name-no-vendor-prefix\": true,
+        \"property-no-vendor-prefix\": true,
+        \"selector-no-vendor-prefix\": true,
+        \"value-no-vendor-prefix\": true,
+        \"max-nesting-depth\": [3, {
+          \"ignore\": \"at-rules-without-declaration-blocks\"
+        }],
+        \"selector-max-compound-selectors\": 3,
+        \"selector-max-specificity\": \"0,3,0\",
+        \"at-rule-no-unknown\": [true, {
+          \"ignoreAtRules\": [\"include\", \"mixin\"]
+        }],
+        \"declaration-no-important\": true,
+        \"property-no-unknown\": true,
+        \"declaration-block-properties-order\": [
+          [
+            {
+              \"order\": \"flexible\",
+              \"properties\": [
+                \"position\",
+                \"z-index\",
+                \"top\",
+                \"bottom\",
+                \"left\",
+                \"right\"
+              ]
+            },
+            {
+              \"order\": \"flexible\",
+              \"properties\": [
+                \"display\",
+                \"overflow\",
+                \"box-sizing\",
+                \"width\",
+                \"height\",
+                \"max-height\",
+                \"max-width\",
+                \"padding\",
+                \"border\",
+                \"margin\"
+              ]
+            },
+            {
+              \"order\": \"flexible\",
+              \"properties\": [
+                \"transform\"
+              ]
+            },
+            {
+              \"order\": \"flexible\",
+              \"properties\": [
+                \"background\",
+                \"color\"
+              ]
+            },
+            {
+              \"order\": \"flexible\",
+              \"properties\": [
+                \"font\",
+                \"line\",
+                \"text\"
+              ]
+            }
+          ],
+          {
+            \"unspecified\": \"bottomAlphabetical\"
+          }
+        ]
+      }
     }" >> .stylelintrc || error_exit "${LINENO}: Unable to init Stylelint"
     initialized+=" stylelint"
   }
@@ -130,7 +212,7 @@ function init {
         eslint
         stylelint
       else
-        echo_error "${arg} is not an initializer \nTyr babel, eslint or stylelint instead"
+        echo_error "${arg} is not an initializer \nTry babel, eslint or stylelint instead"
       fi
     done
 
