@@ -65,7 +65,7 @@ function init {
       if [ "${response}" = "" ] || [ "${response}" = "Y" ] || [ "${response}" = "y" ]; then
         npm init -y || error_exit "${LINENO}: Couldn't initialize NPM, try to do it manually."
       else
-        echo_info "Ok, I wont initialize NPM, but be aware that the packages may not work as you want."
+        echo_info "Ok, I won't initialize NPM, but be aware that the packages may not work as you want."
       fi
     fi
   }
@@ -90,12 +90,15 @@ function init {
       \"extends\": \"airbnb\",
       \"env\": {
         \"browser\": true,
+        \"es6\": true,
         \"node\": true,
         \"mocha\": true
       },
       \"plugins\": [\"react\", \"jsx-a11y\", \"import\"],
       \"rules\": {
-        \"strict\": 0
+        \"strict\": 0,
+        \"no-console\": 0,
+        \"react/jsx-filename-extension\": 0
       }
     }" >> .eslintrc || error_exit "${LINENO}: Unable to init Eslint"
     initialized+=" eslint"
@@ -134,9 +137,9 @@ function init {
                 \"position\",
                 \"z-index\",
                 \"top\",
+                \"right\",
                 \"bottom\",
-                \"left\",
-                \"right\"
+                \"left\"
               ]
             },
             {
@@ -146,9 +149,9 @@ function init {
                 \"overflow\",
                 \"box-sizing\",
                 \"width\",
+                \"max-width\",
                 \"height\",
                 \"max-height\",
-                \"max-width\",
                 \"padding\",
                 \"border\",
                 \"margin\"
@@ -177,7 +180,7 @@ function init {
             }
           ],
           {
-            \"unspecified\": \"bottomAlphabetical\"
+            \"unspecified\": \"bottom\"
           }
         ]
       }
