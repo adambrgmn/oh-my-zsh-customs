@@ -71,7 +71,7 @@ function init {
   }
 
   function babel {
-    npm install --save-dev babel babel-preset-{es2015,stage-0,react,react-hmre}
+    npm install --save-dev babel-cli babel-preset-{es2015,stage-0,react,react-hmre}
     echo "{
       \"presets\": [\"es2015\", \"stage-0\", \"react\"],
       \"env\": {
