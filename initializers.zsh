@@ -71,9 +71,19 @@ function init {
   }
 
   function babel {
-    npm install --save-dev babel-cli babel-preset-{es2015,stage-0,react,react-hmre}
+    npm install --save-dev babel-cli babel-preset-{es2015,es2016,stage-0,react,react-hmre} babel-plugin-{syntax-trailing-function-commas,transform-class-properties,transform-object-rest-spread,transform-runtime}
     echo "{
       \"presets\": [\"es2015\", \"stage-0\", \"react\"],
+      \"plugins\": [
+        \"syntax-trailing-function-commas\",
+        \"transform-class-properties\",
+        \"transform-object-rest-spread\",
+        [\"transform-runtime\", {
+          \"helpers\": false,
+          \"polyfill\": false,
+          \"regenerator\": true
+        }]
+      ]
       \"env\": {
         \"start\": {
           \"presets\": [\"react-hmre\"]
@@ -84,21 +94,46 @@ function init {
   }
 
   function eslint {
-    npm install --save-dev eslint eslint-config-airbnb eslint-plugin-{import,react,jsx-a11y} babel-eslint
+    npm install --save-dev eslint eslint-config-airbnb eslint-plugin-{import,react,jsx-a11y,flowtype} babel-eslint
     echo "{
       \"parser\": \"babel-eslint\",
       \"extends\": \"airbnb\",
+      \"plugins\": [\"react\", \"jsx-a11y\", \"import\"],
       \"env\": {
         \"browser\": true,
+        \"commonjs\": true,
         \"es6\": true,
         \"node\": true,
         \"mocha\": true
       },
-      \"plugins\": [\"react\", \"jsx-a11y\", \"import\"],
+      \"parserOptions\": {
+        \"ecmaVersion\": 6,
+        \"sourceType\": \"module\",
+        \"ecmaFeatures\": {
+          \"jsx\": true,
+          \"generators\": true,
+          \"experimentalObjectRestSpread\": true,
+        }
+      },
+      \"settings\": {
+        \"import/ignore\": [
+          \"node_modules\",
+          \"\\\\.(json|css|jpg|png|gif|eot|otf|svg|ttf|woff|woff2|mp4|webm)$',\"
+        ],
+        \"import/extensions\": [\".js\"],
+        \"import/resolver\": {
+          \"node\": {
+            \"extensions\": [\".js\", \".json\"]
+          }
+        }
+      },
       \"rules\": {
         \"strict\": 0,
         \"no-console\": 0,
-        \"react/jsx-filename-extension\": 0
+        \"react/jsx-filename-extension\": 0,
+        \"flowtype/define-flow-type\": \"warn\",
+        \"flowtype/require-valid-file-annotation\": \"warn\",
+        \"flowtype/use-flow-type\": \"warn\"
       }
     }" >> .eslintrc || error_exit "${LINENO}: Unable to init Eslint"
     initialized+=" eslint"
