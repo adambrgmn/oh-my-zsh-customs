@@ -83,7 +83,7 @@ function init {
           \"polyfill\": false,
           \"regenerator\": true
         }]
-      ]
+      ],
       \"env\": {
         \"start\": {
           \"presets\": [\"react-hmre\"]
